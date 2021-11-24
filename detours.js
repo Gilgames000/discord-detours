@@ -4,12 +4,17 @@ getAllModules = function () {
 
 findModuleByFunctionName = function (name) {
     modules = window.discordDetours.getAllModules();
-    return modules.find(m => (e = m?.exports) && (typeof e[name] === 'function' || typeof e.default?.[name] === 'function'));
+    for (const m of modules) {
+        e = m?.exports;
+        if (!e) continue;
+        if (typeof e.default?.[name] === 'function') return e.default;
+        if (typeof e[name] === 'function') return e;
+    }
 };
 
 findFunctionByName = function (name) {
     functionModule = window.discordDetours.findModuleByFunctionName(name);
-    return functionModule?.exports?.default?.[name];
+    return functionModule?.[name]?.bind(functionModule);
 };
 
 findFunctionsMatchingPattern = function (pattern) {
@@ -18,8 +23,8 @@ findFunctionsMatchingPattern = function (pattern) {
     modules.forEach(m => {
         e = m?.exports;
         d = e?.default;
-        e && Object.keys(e).forEach(i => RegExp(pattern, "i").test(i) && typeof e[i] === 'function' && (matches[i] = e[i]));
-        d && Object.keys(d).forEach(i => RegExp(pattern, "i").test(i) && typeof d[i] === 'function' && (matches[i] = d[i]));
+        e && Object.keys(e).forEach(i => RegExp(pattern, "i").test(i) && typeof e[i] === 'function' && (matches[i] = (matches[i] || []).concat(e[i].bind(e))));
+        d && Object.keys(d).forEach(i => RegExp(pattern, "i").test(i) && typeof d[i] === 'function' && (matches[i] = (matches[i] || []).concat(d[i].bind(d))));
     });
     return matches;
 }
