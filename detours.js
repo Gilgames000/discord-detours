@@ -1,9 +1,9 @@
 getAllModules = function () {
-    return (webpackChunkdiscord_app.push([[''], {}, e => {m = []; for (let c in e.c) m.push(e.c[c])}]), m);
+    return (window.webpackChunkdiscord_app.push([[''], {}, e => {m = []; for (let c in e.c) m.push(e.c[c])}]), m);
 }
 
 findModuleByFunctionName = function (name) {
-    modules = window.discordDetours.getAllModules();
+    modules = this.getAllModules();
     for (const m of modules) {
         e = m?.exports;
         if (!e) continue;
@@ -13,13 +13,13 @@ findModuleByFunctionName = function (name) {
 };
 
 findFunctionByName = function (name) {
-    functionModule = window.discordDetours.findModuleByFunctionName(name);
+    functionModule = this.findModuleByFunctionName(name);
     return functionModule?.[name]?.bind(functionModule);
 };
 
 findFunctionsMatchingPattern = function (pattern) {
     matches = {}
-    modules = window.discordDetours.getAllModules();
+    modules = this.getAllModules();
     modules.forEach(m => {
         e = m?.exports;
         d = e?.default;
