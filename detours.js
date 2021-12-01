@@ -1,9 +1,17 @@
+_fetchModules = function () {
+    this.modules = [];
+    window.webpackChunkdiscord_app.push([[''], {}, e => {for (let c in e.c) this.modules.push(e.c[c])}]);
+}
+
 getAllModules = function () {
-    return (window.webpackChunkdiscord_app.push([[''], {}, e => {m = []; for (let c in e.c) m.push(e.c[c])}]), m);
+    if (void 0 === this.modules) {
+        this._fetchModules();
+    }
+    return this.modules;
 }
 
 findModuleByFunctionName = function (name) {
-    modules = this.getAllModules();
+    const modules = this.getAllModules();
     for (const m of modules) {
         e = m?.exports;
         if (!e) continue;
@@ -13,13 +21,13 @@ findModuleByFunctionName = function (name) {
 };
 
 findFunctionByName = function (name) {
-    functionModule = this.findModuleByFunctionName(name);
+    const functionModule = this.findModuleByFunctionName(name);
     return functionModule?.[name]?.bind(functionModule);
 };
 
 findFunctionsMatchingPattern = function (pattern) {
-    matches = {}
-    modules = this.getAllModules();
+    const matches = {}
+    const modules = this.getAllModules();
     modules.forEach(m => {
         e = m?.exports;
         d = e?.default;
@@ -29,8 +37,8 @@ findFunctionsMatchingPattern = function (pattern) {
     return matches;
 }
 
-
 module.exports = {
+    _fetchModules,
     getAllModules,
     findModuleByFunctionName,
     findFunctionByName,
