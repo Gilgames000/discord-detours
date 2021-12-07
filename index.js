@@ -1,5 +1,5 @@
 const serialize = require("javascript-serialize");
-const detours = require("./detours.js");
+const detours = require("./api.js");
 
 serializeModule = function (moduleToSerialize) {
     return serialize(moduleToSerialize);
