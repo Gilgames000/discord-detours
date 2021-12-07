@@ -6,7 +6,7 @@ serializeModule = function (moduleToSerialize) {
 }
 
 injectModule = function (serializedModule) {
-    moduleToInject = eval("(" + serializedModule + ")");
+    let moduleToInject = eval("(" + serializedModule + ")");
     window.discordDetours = window.discordDetours ?? {};
     for (const fn in moduleToInject) {
         window.discordDetours[fn] = eval("(" + moduleToInject[fn] + ")");

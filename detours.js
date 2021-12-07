@@ -12,6 +12,7 @@ getAllModules = function () {
 
 findModuleByFunctionName = function (name) {
     const modules = this.getAllModules();
+    let e;
     for (const m of modules) {
         e = m?.exports;
         if (!e) continue;
@@ -29,8 +30,8 @@ findFunctionsMatchingPattern = function (pattern) {
     const matches = {}
     const modules = this.getAllModules();
     modules.forEach(m => {
-        e = m?.exports;
-        d = e?.default;
+        let e = m?.exports;
+        let d = e?.default;
         e && Object.keys(e).forEach(i => RegExp(pattern, "i").test(i) && typeof e[i] === 'function' && (matches[i] = (matches[i] || []).concat(e[i].bind(e))));
         d && Object.keys(d).forEach(i => RegExp(pattern, "i").test(i) && typeof d[i] === 'function' && (matches[i] = (matches[i] || []).concat(d[i].bind(d))));
     });
