@@ -1,7 +1,7 @@
 {
   "name": "@gilgames/discord-detours",
-  "version": "0.1.0",
-  "description": "A software packaged used to find and call Discord client's functions by injecting JS code inte the browser context.",
+  "version": "0.1.1",
+  "description": "A software package used to find, call, and hook into Discord client's functions by injecting JS code in the browser context.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
