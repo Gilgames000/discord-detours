@@ -5,11 +5,11 @@ serializeModule = function (moduleToSerialize) {
     return serialize(moduleToSerialize);
 }
 
-injectModule = function (serializedModule) {
+injectModule = function (serializedModule, moduleName = "discordDetours") {
     let moduleToInject = eval("(" + serializedModule + ")");
-    window.discordDetours = window.discordDetours ?? {};
+    window[moduleName] = window[moduleName] ?? {};
     for (const fn in moduleToInject) {
-        window.discordDetours[fn] = eval("(" + moduleToInject[fn] + ")");
+        window[moduleName][fn] = eval("(" + moduleToInject[fn] + ")");
     }
 }
 
