@@ -1,6 +1,6 @@
 {
   "name": "@gilgames/discord-detours",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A software package used to find, call, and hook into Discord client's functions by injecting JS code in the browser context.",
   "main": "index.js",
   "scripts": {
